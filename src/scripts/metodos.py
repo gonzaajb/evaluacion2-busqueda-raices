@@ -53,3 +53,52 @@ def falsa_posicion(f, a, b):
             fa= fc
         x_ant = c
     return hist, "max_iter"
+
+def punto_fijo(f, g, x0):
+    hist = []
+    x = x0
+    for k in range(1,MAX_ITER+1):
+        x_nuevo = g(x)
+        if not np.isfinite(x_nuevo) or abs(x_nuevo) > 1e10:
+            return hist, "falla"
+        fx = f(x_nuevo)
+        hist.append((k, x_nuevo, fx))
+        if parar(fx, x_nuevo, x):
+            return hist, "convergio"
+        x= x_nuevo
+    return hist, "max_iter"
+
+def secante(f, x0, x1):
+    hist = []
+    f0 = f(x0)
+    f1 = f(x1)
+    for k in range(1,MAX_ITER+1):
+        if f1 == f0 or not np.isfinite(f1):
+            return hist, "falla"
+        x2 = x1 - f1*(x1 - x0)/(f1 - f0)
+        if not np.isfinite(x2):
+            return hist, "falla"
+        f2 = f(x2)
+        hist.append((k, x2, f2))
+        if parar(f2, x2, x1):
+            return hist, "convergio"
+        x0, f0 = x1, f1
+        x1, f1 = x2, f2
+    return hist, "max_iter"
+
+def newton(f, df, x0):
+    hist = []
+    x = x0
+    for k in range(1,MAX_ITER+1):
+        d = df(x)
+        if d == 0 or not np.isfinite(d):
+            return hist, "falla"
+        x_nuevo = x - f(x)/d
+        if not np.isfinite(x_nuevo) or abs(x_nuevo) > 1e10:
+            return hist, "falla"
+        fx = f(x_nuevo)
+        hist.append((k, x_nuevo, fx))
+        if parar(fx, x_nuevo, x):
+            return hist, "convergio"
+        x= x_nuevo
+    return hist, "max_iter"
