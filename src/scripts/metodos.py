@@ -102,3 +102,23 @@ def newton(f, df, x0):
             return hist, "convergio"
         x= x_nuevo
     return hist, "max_iter"
+
+def newton_mejorado(f, df, d2f, x0):
+    hist = []
+    x = x0
+    for k in range(1,MAX_ITER+1):
+        fx0 = f(x)
+        d = df(x)
+        d2 = d2f(x)
+        den = d*d - fx0*d2
+        if den == 0 or not np.isfinite(den):
+            return hist, "falla"
+        x_nuevo = x - (fx0*d)/den
+        if not np.isfinite(x_nuevo) or abs(x_nuevo) > 1e10:
+            return hist, "falla"
+        fx = f(x_nuevo)
+        hist.append((k, x_nuevo, fx))
+        if parar(fx, x_nuevo, x):
+            return hist, "convergio"
+        x = x_nuevo
+    return hist, "max_iter"
