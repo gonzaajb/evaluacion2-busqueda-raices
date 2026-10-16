@@ -2,7 +2,6 @@
 
 Comparación de seis métodos para encontrar raíces (bisección, falsa posición, punto fijo, secante, Newton y Newton mejorado) en seis funciones distintas.
 
-Universidad Católica del Maule - Laboratorio evaluado 2
 Integrante: Gonzalo Jaque Barros
 
 ## Cómo correrlo
