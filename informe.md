@@ -70,7 +70,7 @@ Las curvas de convergencia completas están en la carpeta `src/assets/`. Como mu
 - **Falsa posición y Punto fijo:** Su velocidad depende mucho de la curva. Falsa posición anduvo bien en la logarítmica y mixta (4 iteraciones), pero en punto fijo la convergencia depende de qué tan chico sea $|g'(r)|$. Por ejemplo, en la mixta $|g'(r)| \approx 0,96$ es muy cercano a 1, por lo que avanzó tan lento que no alcanzó la tolerancia en 100 pasos.
 
 ### El caso de la raíz doble: (x − 2)²
-Este caso mostró dos cosas importantes:
+Este caso mostró tres cosas importantes:
 1. **Bisección y falsa posición no sirven:** Al ser una raíz con tangencia, la función no cruza el eje y no hay cambio de signo.
 2. **Parada prematura en Newton y secante:** Como $f(x) = (x - 2)^2$, cuando $|x - 2| \approx 10^{-3}$, la función ya vale $10^{-6}$ y el programa se corta creyendo que llegó a la solución, aunque el error real sigue siendo grande ($7,8 \cdot 10^{-4}$).
 3. **Newton mejorado:** Usando la segunda derivada, corrigió el problema de la multiplicidad y llegó a $x = 2$ exacto en 1 sola iteración.
